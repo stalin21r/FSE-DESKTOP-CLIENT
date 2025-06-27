@@ -115,7 +115,7 @@ const AdminLayout = () => {
             {userInfo?.rol === 'admin' && (
               <li>
                 <Link
-                  to={''}
+                  to={'#'}
                   className={`flex items-center p-3 rounded-lg ${sidebarOpen ? 'justify-start' : 'justify-center'} ${
                     isActiveRoute('/admin/configuracion') ? 'bg-blue-700' : 'hover:bg-blue-700'
                   }`}

@@ -28,7 +28,7 @@ export default function Socios() {
       try {
         setLoading(true)
         const socios = await socioService.getAll()
-        setSocios(socios)
+        setSocios(socios.data)
       } catch (err) {
         toast.error(err instanceof Error ? err.message : 'Error desconocido')
       } finally {

@@ -4,6 +4,7 @@ import type { Region, CreateRegion, UpdateRegion } from './region'
 import type { Rol } from './rol'
 import type { Socio, CreateSocio, UpdateSocio } from './socio'
 import type { CreateUsuario, Usuario, UpdateUsuario } from './usuario'
+import type { ApiResponse } from './apiResponse'
 
 export {
   Cargo,
@@ -19,5 +20,6 @@ export {
   UpdateSocio,
   CreateUsuario,
   Usuario,
-  UpdateUsuario
+  UpdateUsuario,
+  ApiResponse
 }

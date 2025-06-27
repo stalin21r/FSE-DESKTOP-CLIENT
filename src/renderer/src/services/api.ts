@@ -42,45 +42,41 @@ axiosInstance.interceptors.response.use(
 
 // clase para crear APIs con metodos comunes
 class Api {
-  private token: string | null = null
+  // ya no guardamos this.token
+  constructor() {}
 
-  constructor() {
-    this.token = localStorage.getItem('token')
-    if (this.token) setAuthToken(this.token)
-  }
-
-  // Método para establecer el token (útil después del login)
-  setToken(token: string | null) {
-    this.token = token
+  // actualiza esto para que siempre lea el token actual
+  private updateAuthHeader() {
+    const token = localStorage.getItem('token')
     setAuthToken(token)
   }
 
-  // Método GET
-  async get<T>(utl: string, config?: AxiosRequestConfig): Promise<T> {
-    const response = await axiosInstance.get<T>(utl, config)
+  async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    this.updateAuthHeader()
+    const response = await axiosInstance.get<T>(url, config)
     return response.data
   }
 
-  // Método POST
   async post<T>(url: string, data: any, config?: AxiosRequestConfig): Promise<T> {
+    this.updateAuthHeader()
     const response = await axiosInstance.post<T>(url, data, config)
     return response.data
   }
 
-  // Método PUT
   async put<T>(url: string, data: any, config?: AxiosRequestConfig): Promise<T> {
+    this.updateAuthHeader()
     const response = await axiosInstance.put<T>(url, data, config)
     return response.data
   }
 
-  // Metodo PATCH
   async patch<T>(url: string, data: any, config?: AxiosRequestConfig): Promise<T> {
+    this.updateAuthHeader()
     const response = await axiosInstance.patch<T>(url, data, config)
     return response.data
   }
 
-  // Método DELETE
   async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    this.updateAuthHeader()
     const response = await axiosInstance.delete<T>(url, config)
     return response.data
   }

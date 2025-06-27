@@ -1,4 +1,4 @@
-import type { Socio, CreateSocio, UpdateSocio } from '@renderer/types/socio'
+import type { Socio, CreateSocio, UpdateSocio, ApiResponse } from '@renderer/types'
 import api from './api'
 import axios from 'axios'
 
@@ -7,9 +7,9 @@ interface SocioError {
 }
 
 export const socioService = {
-  async create(data: CreateSocio): Promise<Socio> {
+  async create(data: CreateSocio): Promise<ApiResponse<Socio>> {
     try {
-      const response = await api.post<Socio>('/socios', data)
+      const response = await api.post<ApiResponse<Socio>>('/socios', data)
       return response
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
@@ -23,9 +23,9 @@ export const socioService = {
     }
   },
 
-  async getAll(): Promise<Socio[]> {
+  async getAll(): Promise<ApiResponse<Socio[]>> {
     try {
-      const response = await api.get<Socio[]>('/socios')
+      const response = await api.get<ApiResponse<Socio[]>>('/socios')
       return response
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
@@ -39,9 +39,9 @@ export const socioService = {
     }
   },
 
-  async getByCod(cod: string): Promise<Socio> {
+  async getByCod(cod: string): Promise<ApiResponse<Socio>> {
     try {
-      const response = await api.get<Socio>(`/socios/${cod}`)
+      const response = await api.get<ApiResponse<Socio>>(`/socios/${cod}`)
       return response
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
@@ -55,9 +55,9 @@ export const socioService = {
     }
   },
 
-  async update(cod: string, data: UpdateSocio): Promise<Socio> {
+  async update(cod: string, data: UpdateSocio): Promise<ApiResponse<Socio>> {
     try {
-      const response = await api.patch<Socio>(`/socios/${cod}`, data)
+      const response = await api.patch<ApiResponse<Socio>>(`/socios/${cod}`, data)
       return response
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
@@ -71,9 +71,9 @@ export const socioService = {
     }
   },
 
-  async delete(cod: string): Promise<Socio> {
+  async delete(cod: string): Promise<ApiResponse<Socio>> {
     try {
-      const response = await api.delete<Socio>(`/socio/${cod}`)
+      const response = await api.delete<ApiResponse<Socio>>(`/socio/${cod}`)
       return response
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
