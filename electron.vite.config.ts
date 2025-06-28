@@ -17,20 +17,22 @@ export default defineConfig({
         '@': path.resolve(__dirname, './src/renderer/src')
       }
     },
-    plugins: [react(), tailwindcss()],
-    server: {
+    plugins: [react(), tailwindcss()]
+
+    /*server: {
       headers: {
         'Content-Security-Policy': `
-          default-src 'self';
-          script-src 'self' 'unsafe-inline' 'unsafe-eval';
-          style-src 'self' 'unsafe-inline';
-          img-src 'self' data: blob:;
-          connect-src 'self' http://127.0.0.1:3000 http://localhost:3000 ws://localhost:*;
-          font-src 'self';
-        `
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' 'unsafe-eval';
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data: blob: https://purecatamphetamine.github.io;
+      connect-src 'self' http://127.0.0.1:3000 http://localhost:3000 ws://localhost:*;
+      font-src 'self';
+    `
           .replace(/\s+/g, ' ')
           .trim()
       }
     }
+    */
   }
 })

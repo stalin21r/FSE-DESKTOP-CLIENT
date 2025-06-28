@@ -5,7 +5,7 @@ import type { Usuario } from './usuario'
 
 export interface CreateSocio {
   pnombre: string
-  cedula?: string
+  cedula: string
   snombre?: string
   papellido: string
   sapellido?: string
@@ -13,9 +13,9 @@ export interface CreateSocio {
   stelefono?: string
   rutafoto: string
   rutafirma: string
-  cargoid?: number
+  cargoid: number
   provinciaid: number
-  regionid?: number
+  regionid: number
   sector?: string
   registradoPorid: number
 }
