@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: fse-desktop
+productName: Registro FSE
 directories:
   buildResources: build
 files:
@@ -12,6 +12,7 @@ files:
 asarUnpack:
   - resources/**
 win:
+  icon: resources/icon.ico
   executableName: fse-desktop
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
@@ -19,6 +20,7 @@ nsis:
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
 mac:
+  icon: resources/icon.icns
   entitlementsInherit: build/entitlements.mac.plist
   extendInfo:
     - NSCameraUsageDescription: Application requests access to the device's camera.

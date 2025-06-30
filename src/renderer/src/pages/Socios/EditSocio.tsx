@@ -1,29 +1,31 @@
+import React, { useEffect, useState } from 'react'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { useAuth } from '@renderer/hooks/useAuth'
+import { LoadingOverlay, TitlePage } from '@renderer/components/common'
+import { LuUserPlus } from 'react-icons/lu'
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import 'react-phone-number-input/style.css'
+import { ROUTES } from '@renderer/utils/constants'
 import {
-  socioService,
   cargoService,
   provinciaService,
   regionService,
-  imageService
+  imageService,
+  socioService
 } from '@renderer/services'
-import { ROUTES } from '@renderer/utils/constants'
-import React, { useEffect, useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import { LoadingOverlay, TitlePage } from '@renderer/components/common'
-import type { CreateSocio, Region, Provincia, Cargo } from '@renderer/types'
-import { LuUserPlus } from 'react-icons/lu'
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
-import 'react-phone-number-input/style.css'
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+import type { UpdateSocio, Cargo, Provincia, Region } from '@renderer/types'
 import { FaArrowLeft } from 'react-icons/fa'
 
-export default function NewSocio() {
+export default function EditSocio() {
   const { userInfo } = useAuth()
   const navigate = useNavigate()
+  const { cod } = useParams()
   const MySwal = withReactContent(Swal)
-  const [loading, setLoading] = useState(false)
+
+  const [loading, setLoading] = useState(true)
   const [cargos, setCargos] = useState<Cargo[]>([])
   const [provincias, setProvincias] = useState<Provincia[]>([])
   const [regiones, setRegiones] = useState<Region[]>([])
@@ -31,7 +33,9 @@ export default function NewSocio() {
     foto: '',
     firma: ''
   })
-  const [socio, setSocio] = useState<CreateSocio>({
+
+  const [socio, setSocio] = useState<UpdateSocio>({
+    codunico: '',
     pnombre: '',
     cedula: '',
     snombre: '',
@@ -48,172 +52,170 @@ export default function NewSocio() {
     registradoPorid: 0
   })
 
-  const fetchCargos = () => {
-    cargoService
-      .getAll()
-      .then(response => {
-        setCargos(response.data)
-      })
-      .catch(error => {
-        toast.error(error.message)
-      })
-  }
-
-  const fetchProvincias = () => {
-    provinciaService
-      .getAll()
-      .then(response => {
-        setProvincias(response.data)
-      })
-      .catch(error => {
-        toast.error(error.message)
-      })
-  }
-
-  const fetchRegiones = () => {
-    regionService
-      .getAll()
-      .then(response => {
-        setRegiones(response.data)
-      })
-      .catch(error => {
-        toast.error(error.message)
-      })
-  }
-
   useEffect(() => {
     if (!userInfo) {
       navigate(ROUTES.LOGIN)
+      return
     }
-    setLoading(true)
-    fetchCargos()
-    fetchProvincias()
-    fetchRegiones()
-    setLoading(false)
-  }, [])
+    if (!cod) {
+      toast.error('Código inválido')
+      navigate(ROUTES.ADMIN_SOCIOS)
+      return
+    }
 
-  const handleSelectImage = async (e: React.MouseEvent, type: 'foto' | 'firma') => {
-    e?.preventDefault()
-    const result = await imageService.getImage()
-    if (result) {
-      if (type === 'foto') {
-        setImagesPreview({ ...imagesPreview, foto: result })
-      } else {
-        setImagesPreview({ ...imagesPreview, firma: result })
+    const loadData = async () => {
+      try {
+        setLoading(true)
+        const [cargosRes, provinciasRes, regionesRes, socioRes] = await Promise.all([
+          cargoService.getAll(),
+          provinciaService.getAll(),
+          regionService.getAll(),
+          socioService.getByCod(cod)
+        ])
+        setCargos(cargosRes.data)
+        setProvincias(provinciasRes.data)
+        setRegiones(regionesRes.data)
+        console.log(socioRes.data)
+        setSocio({
+          codunico: socioRes.data.codunico,
+          pnombre: socioRes.data.pnombre,
+          cedula: socioRes.data.cedula,
+          snombre: socioRes.data.snombre || '',
+          papellido: socioRes.data.papellido,
+          sapellido: socioRes.data.sapellido || '',
+          ptelefono: socioRes.data.ptelefono,
+          stelefono: socioRes.data.stelefono || '',
+          rutafoto: socioRes.data.rutafoto,
+          rutafirma: socioRes.data.rutafirma,
+          cargoid: socioRes.data.cargoid || 0,
+          provinciaid: socioRes.data.provinciaid,
+          regionid: socioRes.data.regionid || 0,
+          sector: socioRes.data.sector || '',
+          impreso: socioRes.data.impreso,
+          registradoPorid: socioRes.data.registradoPorid
+        })
+      } catch (err) {
+        toast.error('Error cargando los datos')
+        navigate(ROUTES.ADMIN_SOCIOS)
+      } finally {
+        setLoading(false)
       }
     }
+
+    loadData()
+  }, [])
+
+  const handleSelectImage = async (e: React.MouseEvent, tipo: 'foto' | 'firma') => {
+    e.preventDefault()
+    const result = await imageService.getImage()
+    if (result) {
+      setImagesPreview(prev => ({ ...prev, [tipo]: result }))
+    }
+  }
+
+  const verificarCampos = () => {
+    if (
+      !socio.pnombre ||
+      !socio.cedula ||
+      !socio.papellido ||
+      !socio.ptelefono ||
+      !socio.cargoid ||
+      !socio.provinciaid ||
+      !socio.regionid
+    ) {
+      return false
+    }
+    if (socio.regionid > 2 && !socio.sector) {
+      return false
+    }
+    return true
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    const confirmacion = await MySwal.fire({
+      title: '¿Está seguro de guardar los cambios?',
+      text: 'Verifique los datos antes de continuar',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, guardar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#FBD130',
+      cancelButtonColor: '#E44F38'
+    })
+
+    if (!confirmacion.isConfirmed) return
+
+    if (!verificarCampos()) {
+      await MySwal.fire({
+        title: 'Complete todos los campos obligatorios',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#FBD130'
+      })
+      return
+    }
+
     try {
-      const confirmacion = await MySwal.fire({
-        title: '¿Está seguro de guardar este socio?',
-        text: 'No olvide verificar los datos antes de guardar',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Sí, guardar',
-        cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#FBD130',
-        cancelButtonColor: '#E44F38'
-      })
-      if (!confirmacion.isConfirmed) {
-        return
+      setLoading(true)
+
+      const updates: UpdateSocio = {
+        ...socio,
+        registradoPorid: userInfo?.userId,
+        codunico: socio.codunico
       }
-      if (!verificarCampos()) {
-        await MySwal.fire({
-          title: 'Por favor, complete los campos obligatorios *',
-          icon: 'error',
-          color: '#E44F38',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#FBD130'
+      if (imagesPreview.foto) {
+        const fotoRes = await imageService.saveImages({
+          base64: imagesPreview.foto,
+          pnombre: socio.pnombre || '',
+          papellido: socio.papellido || '',
+          cedula: socio.cedula || '',
+          tipo: 'foto'
         })
-        return
-      }
-      let saveImageResult
-      saveImageResult = await imageService.saveImages({
-        base64: imagesPreview.foto,
-        pnombre: socio.pnombre,
-        papellido: socio.papellido,
-        cedula: socio.cedula,
-        tipo: 'foto'
-      })
-      if (!saveImageResult.success) {
-        await MySwal.fire({
-          title: 'Error al guardar la foto',
-          icon: 'error',
-          color: '#E44F38',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#FBD130'
-        })
-        return
-      }
-      saveImageResult = await imageService.saveImages({
-        base64: imagesPreview.firma,
-        pnombre: socio.pnombre,
-        papellido: socio.papellido,
-        cedula: socio.cedula,
-        tipo: 'firma'
-      })
-      if (!saveImageResult.success) {
-        await MySwal.fire({
-          title: 'Error al guardar la firma',
-          icon: 'error',
-          color: '#E44F38',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#FBD130'
-        })
-        return
+
+        if (!fotoRes.success) throw new Error('Error guardando la foto')
+        updates.rutafoto =
+          `FSEIMAGES/${socio.papellido}_${socio.pnombre}_${socio.cedula}/${socio.papellido}_${socio.pnombre}_${socio.cedula}_FOTO.png`.toUpperCase()
       }
 
-      socio.rutafoto =
-        `FSEIMAGES/${socio.papellido}_${socio.pnombre}_${socio.cedula}/${socio.papellido}_${socio.pnombre}_${socio.cedula}_FOTO.png`.toUpperCase()
-      socio.rutafirma =
-        `FSEIMAGES/${socio.papellido}_${socio.pnombre}_${socio.cedula}/${socio.papellido}_${socio.pnombre}_${socio.cedula}_FIRMA.png`.toUpperCase()
-      socio.registradoPorid = userInfo?.userId || 0
-      const newSocio = socio
-      console.log(newSocio)
-      setLoading(true)
-      const result = await socioService.create(newSocio)
-      setLoading(false)
-      if (result.status === 201) {
-        toast.success('Socio registrado con exito')
-        navigate(ROUTES.ADMIN_SOCIOS)
+      if (imagesPreview.firma) {
+        const firmaRes = await imageService.saveImages({
+          base64: imagesPreview.firma,
+          pnombre: socio.pnombre || '',
+          papellido: socio.papellido || '',
+          cedula: socio.cedula || '',
+          tipo: 'firma'
+        })
+
+        if (!firmaRes.success) throw new Error('Error guardando la firma')
+        updates.rutafirma =
+          `FSEIMAGES/${socio.papellido}_${socio.pnombre}_${socio.cedula}/${socio.papellido}_${socio.pnombre}_${socio.cedula}_FIRMA.png`.toUpperCase()
       }
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Error desconocido')
+
+      console.log(updates)
+      updates.impreso = false
+      const result = await socioService.update(updates)
+
+      if (result.status === 200) {
+        toast.success('Socio actualizado correctamente')
+        navigate(ROUTES.ADMIN_SOCIOS)
+      } else {
+        throw new Error('No se pudo actualizar el socio')
+      }
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Error desconocido')
     } finally {
       setLoading(false)
     }
-  }
-
-  const verificarCampos = (): boolean => {
-    if (
-      socio.pnombre === '' ||
-      socio.cedula === '' ||
-      socio.papellido === '' ||
-      socio.ptelefono === '' ||
-      socio.cargoid === 0 ||
-      socio.provinciaid === 0 ||
-      socio.regionid === 0 ||
-      imagesPreview.foto === '' ||
-      imagesPreview.firma === ''
-    ) {
-      return false
-    }
-
-    if (socio.regionid > 2 && socio.sector === '') {
-      return false
-    }
-    return true
   }
 
   return (
     <div className="h-full w-full flex flex-col justify-start pt-8 px-4">
       {loading && <LoadingOverlay />}
       <section className="flex w-full gap-3">
-        <LuUserPlus className="text-6xl text-blue-500 font-bold" />
-        <TitlePage title="Nuevo socio" />
+        <LuUserPlus className="text-6xl text-yellow-500 font-bold" />
+        <TitlePage title="Editar socio" />
       </section>
       <section className="flex w-full items-center justify-end">
         <NavLink
@@ -402,9 +404,11 @@ export default function NewSocio() {
                   </>
                 )}
               </div>
+
               <div className="row-span-3 col-start-3 row-start-1">
+                <div></div>
                 <label htmlFor="foto" className="block mb-1 font-semibold">
-                  Foto<span className="text-red-600">*</span>:
+                  Foto:
                 </label>
                 <div className="w-full h-48 border rounded-xl shadow-inner bg-gray-100 flex items-center justify-center overflow-hidden">
                   {imagesPreview?.foto ? (
@@ -424,7 +428,7 @@ export default function NewSocio() {
               </div>
               <div className="row-span-3 col-start-4 row-start-1">
                 <label htmlFor="firma" className="block mb-1 font-semibold">
-                  Firma<span className="text-red-600">*</span>:
+                  Firma:
                 </label>
                 <div className="w-full h-48 border rounded-xl shadow-inner bg-gray-100 flex items-center justify-center overflow-hidden">
                   {imagesPreview?.firma ? (
@@ -442,9 +446,15 @@ export default function NewSocio() {
                   seleccionar
                 </button>
               </div>
-              <p className="col-span-2 col-start-3 row-start-5 text-red-600 text-xs font-bold animate-pulse">
-                * Ingrese los campos requeridos
-              </p>
+              <div className="col-span-2 col-start-3 row-start-5">
+                <p className=" text-red-600 text-xs font-bold animate-pulse">
+                  * Ingrese los campos requeridos
+                </p>
+                <p className="text-xs text-red-600">
+                  Si no desea cambiar la foto o firma, dejarlas en blanco
+                </p>
+              </div>
+
               <div className="col-span-2 col-start-3 row-start-6">
                 <button
                   type="submit"

@@ -55,9 +55,9 @@ export const socioService = {
     }
   },
 
-  async update(cod: string, data: UpdateSocio): Promise<ApiResponse<Socio>> {
+  async update(data: UpdateSocio): Promise<ApiResponse<Socio>> {
     try {
-      const response = await api.patch<ApiResponse<Socio>>(`/socios/${cod}`, data)
+      const response = await api.patch<ApiResponse<Socio>>(`/socios`, data)
       return response
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
@@ -73,7 +73,7 @@ export const socioService = {
 
   async delete(cod: string): Promise<ApiResponse<Socio>> {
     try {
-      const response = await api.delete<ApiResponse<Socio>>(`/socio/${cod}`)
+      const response = await api.delete<ApiResponse<Socio>>(`/socios/${cod}`)
       return response
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {

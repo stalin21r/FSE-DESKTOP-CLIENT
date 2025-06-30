@@ -111,7 +111,7 @@ const AdminLayout = () => {
                 {sidebarOpen && <span className="ml-3">Socios</span>}
               </Link>
             </li>
-
+            {/*}
             {userInfo?.rol === 'admin' && (
               <li>
                 <Link
@@ -144,13 +144,14 @@ const AdminLayout = () => {
                 </Link>
               </li>
             )}
+              */}
           </ul>
         </nav>
 
         {/* User profile section at bottom */}
         <div className="mt-2 p-2 border-t-2 border-red-300">
           <Link
-            to="/admin/perfil"
+            to="#"
             className={`flex items-center p-2 rounded-lg ${
               isActiveRoute('/admin/perfil') ? 'bg-red-300' : 'hover:bg-red-300'
             }`}

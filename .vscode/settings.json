@@ -7,5 +7,21 @@
   },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "cSpell.words": [
+    "cargoid",
+    "cedula",
+    "papellido",
+    "pnombre",
+    "Porid",
+    "provinciaid",
+    "ptelefono",
+    "regionid",
+    "rutafirma",
+    "rutafoto",
+    "sapellido",
+    "snombre",
+    "stelefono",
+    "sweetalert"
+  ]
 }

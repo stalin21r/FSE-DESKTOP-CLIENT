@@ -3,6 +3,8 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import 'dotenv/config'
+import { registerDialogHandler } from './handlers/dialog.handler'
+import { registerSaveImageHandler } from './handlers/save-image.handler'
 const apiUrl = process.env.VITE_API_URL || 'http://localhost:3000'
 const parsed = new URL(apiUrl)
 console.log(parsed)
@@ -10,7 +12,7 @@ console.log(parsed)
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
+    width: 1200,
     height: 670,
     show: false,
     autoHideMenuBar: true,
@@ -55,6 +57,9 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
+
+  registerDialogHandler()
+  registerSaveImageHandler()
 
   createWindow()
 

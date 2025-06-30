@@ -1,4 +1,4 @@
-import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom'
+import { Navigate, RouteObject, createHashRouter } from 'react-router-dom'
 import PrivateRoute from './PrivateRoute'
 import { ROUTES } from '@renderer/utils/constants'
 
@@ -6,7 +6,7 @@ import { ROUTES } from '@renderer/utils/constants'
 //import PublicLayout from '@re/components/layout/PublicLayout'
 import AdminLayout from '@renderer/components/layout/AdminLayout'
 // Páginas
-import { Login, Home, Socios, NewSocio } from '@renderer/pages'
+import { Login, Home, Socios, NewSocio, EditSocio, ViewSocio } from '@renderer/pages'
 
 // Definición de rutas
 const routes: RouteObject[] = [
@@ -30,8 +30,10 @@ const routes: RouteObject[] = [
       // Páginas de administración (comentadas hasta que se implementen las páginas)
       { index: true, element: <Home /> },
       { path: ROUTES.ADMIN_SOCIOS, element: <Socios /> },
-      { path: ROUTES.ADMIN_SOCIOS_NEW, element: <NewSocio /> }
-      // { path: 'turnos', element: <AdminTurnos /> },
+      { path: ROUTES.ADMIN_SOCIOS_NEW, element: <NewSocio /> },
+      { path: ROUTES.ADMIN_SOCIOS_EDIT, element: <EditSocio /> },
+      { path: ROUTES.ADMIN_SOCIOS_SHOW, element: <ViewSocio /> }
+
       // { path: 'configuracion', element: <PrivateRoute adminOnly={true}><AdminConfiguracion /></PrivateRoute> },
       // { path: 'perfil', element: <UserProfile /> },
     ]
@@ -45,6 +47,6 @@ const routes: RouteObject[] = [
 ]
 
 // Crear el router
-const router = createBrowserRouter(routes)
+const router = createHashRouter(routes)
 
 export default router

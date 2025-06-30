@@ -1,8 +1,21 @@
-import { contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
 // Custom APIs for renderer
-const api = {}
+const api = {
+  selectImage: async (): Promise<string | null> => {
+    return await ipcRenderer.invoke('select-image')
+  },
+  saveImage: async (data: {
+    base64: string
+    pnombre: string
+    papellido: string
+    cedula: string
+    tipo: string
+  }): Promise<{ success: boolean; path: string }> => {
+    return await ipcRenderer.invoke('save-image', data)
+  }
+}
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
