@@ -397,8 +397,8 @@ export default function EditSocio() {
                     <input
                       type="text"
                       id="sector"
-                      value={socio.sector?.toUpperCase()}
-                      onChange={e => setSocio({ ...socio, sector: e.target.value })}
+                      value={socio.sector}
+                      onChange={e => setSocio({ ...socio, sector: e.target.value.toUpperCase() })}
                       className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-600/30 focus:shadow-md focus:shadow-red-600/40 text-black text-xs"
                     />
                   </>

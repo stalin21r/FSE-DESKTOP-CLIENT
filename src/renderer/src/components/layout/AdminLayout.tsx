@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Outlet, Link, useNavigate, useLocation, Route } from 'react-router-dom'
+import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import { LogoCircular } from '@renderer/assets/images'
 import { ROUTES } from '@renderer/utils/constants'

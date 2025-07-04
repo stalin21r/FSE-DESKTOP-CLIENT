@@ -36,7 +36,7 @@ export default function Home() {
       <footer className="mt-10 w-full max-w-4xl px-4 py-2 flex flex-col items-center border-t border-gray-300">
         <div className="flex space-x-6 mb-4 text-gray-700">
           <a
-            href="https://facebook.com"
+            href="https://facebook.com/MARCELOGARCIAFSQ"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Facebook"
