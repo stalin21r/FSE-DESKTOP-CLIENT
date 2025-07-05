@@ -27,7 +27,8 @@ export const ROUTES = {
   ADMIN_CARGOS: '/admin/cargos',
   ADMIN_USERS: '/admin/usuarios',
   ADMIN_REGIONES: '/admin/regiones',
-  USER_PROFILE: '/admin/perfil'
+  USER_PROFILE: '/admin/perfil',
+  ADMIN_CONFIG: '/admin/#Config'
 }
 
 // Mensajes de error
