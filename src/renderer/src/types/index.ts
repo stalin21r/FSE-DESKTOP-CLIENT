@@ -4,6 +4,11 @@ import type { Region, CreateRegion, UpdateRegion } from './region'
 import type { Rol } from './rol'
 import type { Socio, CreateSocio, UpdateSocio } from './socio'
 import type { CreateUsuario, Usuario, UpdateUsuario } from './usuario'
+import type {
+  CreateAutoidentificacion,
+  Autoidentificacion,
+  UpdateAutoidentificacion
+} from './autoidentificacion'
 import type { ApiResponse } from './apiResponse'
 
 export {
@@ -21,5 +26,8 @@ export {
   CreateUsuario,
   Usuario,
   UpdateUsuario,
+  CreateAutoidentificacion,
+  Autoidentificacion,
+  UpdateAutoidentificacion,
   ApiResponse
 }

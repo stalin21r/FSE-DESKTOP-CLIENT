@@ -155,7 +155,7 @@ export default function Socios() {
                       </span>
                     </td>
                     {userInfo?.rol === ROLES.ADMIN && (
-                      <td className="px-4 py-2">{socio.registradoPor?.username}</td>
+                      <td className="px-4 py-2">{socio.registradoPor2?.username}</td>
                     )}
                     <td className="px-4 py-2 text-center">
                       <div className="flex justify-center gap-2">

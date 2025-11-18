@@ -63,9 +63,10 @@ export default function ViewSocio() {
             <Info label="Cargo" value={socio.cargo?.cargo} />
             <Info label="Provincia" value={socio.provincia?.provincia} />
             <Info label="Región" value={socio.region?.region} />
+            <Info label="Auto Identificación" value={socio.autoidentificacionfk2?.nombre} />
             {socio.regionid! > 2 && <Info label="Sector" value={socio.sector || 'N/A'} />}
             {userInfo?.rol === 'admin' && (
-              <Info label="Registrado Por" value={socio.registradoPor?.username || 'N/A'} />
+              <Info label="Registrado Por" value={socio.registradoPor2?.username || 'N/A'} />
             )}
 
             <Info label="Impreso" value={socio.impreso ? 'Sí' : 'No'} />

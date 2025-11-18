@@ -1,3 +1,4 @@
+import type { Autoidentificacion } from './autoidentificacion'
 import type { Cargo } from './cargo'
 import type { Provincia } from './provincia'
 import type { Region } from './region'
@@ -17,7 +18,9 @@ export interface CreateSocio {
   provinciaid: number
   regionid: number
   sector?: string
-  registradoPorid: number
+  registradoPor: number
+  autoidentificacionfk?: number
+  email?: string
 }
 
 export interface UpdateSocio extends Partial<CreateSocio> {
@@ -41,14 +44,15 @@ export interface Socio {
   impreso: boolean
   regionid: number | null
   sector: string | null
-  fechaRegistro: string // normalmente fechas vienen como ISO strings en JSON
-  registradoPorid: number
+  fechaRegistro: string
+  registradoPor: number
   machine: string | null
   cedula: string
 
   // Relaciones
+  autoidentificacionfk2?: Autoidentificacion
   cargo?: Cargo | null
   provincia?: Provincia
   region?: Region | null
-  registradoPor?: Usuario
+  registradoPor2?: Usuario
 }

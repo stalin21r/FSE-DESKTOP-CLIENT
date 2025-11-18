@@ -9,8 +9,14 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "cSpell.words": [
+    "autoidentificacion",
+    "Autoidentificacion",
+    "autoidentificaciones",
+    "Autoidentificaciones",
+    "autoidentificacionfk",
     "cargoid",
     "cedula",
+    "identificacion",
     "papellido",
     "pnombre",
     "Porid",
@@ -23,5 +29,6 @@
     "snombre",
     "stelefono",
     "sweetalert"
-  ]
+  ],
+  "postman.settings.dotenv-detection-notification-visibility": false
 }

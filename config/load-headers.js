@@ -3,7 +3,8 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const isDevelopment = process.env.VITE_NODE_ENV === 'development'
+console.log(process.env.NODE_ENV)
+const isDevelopment = process.env.NODE_ENV === 'development'
 
 const headersFile = isDevelopment
   ? path.join(__dirname, 'headers.dev.json')
