@@ -1,4 +1,4 @@
-appId: com.electron.app
+appId: com.fse.app
 productName: Registro FSE
 directories:
   buildResources: build
