@@ -46,12 +46,12 @@ const AdminLayout = () => {
           )}
           <button
             onClick={toggleSidebar}
-            className="p-1 rounded-md hover:bg-yellow-400 focus:outline-none text-red-600 cursor-pointer"
+            className="p-1 rounded-md hover:bg-primaryRed focus:outline-none text-red-600 cursor-pointer"
           >
             {sidebarOpen ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-primaryYellow"
+                className="h-4 w-4 text-primaryYellow"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -66,7 +66,7 @@ const AdminLayout = () => {
             ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-primaryYellow"
+                className="h-4 w-4 text-primaryYellow"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -102,8 +102,8 @@ const AdminLayout = () => {
                 <Link
                   to={ROUTES.ADMIN_SOCIOS}
                   className={`flex items-center p-3 rounded-lg ${sidebarOpen ? 'justify-start' : 'justify-center'} ${
-                    isActiveRoute(ROUTES.ADMIN_SOCIOS) &&
-                    !location.pathname.includes(ROUTES.ADMIN_SOCIOS + '/')
+                    isActiveRoute(ROUTES.ADMIN_SOCIOS) ||
+                    location.pathname.includes(ROUTES.ADMIN_SOCIOS + '/')
                       ? 'bg-primaryYellow text-primaryBlue'
                       : 'hover:bg-secondaryYellow hover:text-primaryRed'
                   } transition-all duration-300 ease-in-out`}
@@ -161,11 +161,13 @@ const AdminLayout = () => {
           <div className="mt-2 p-2 border-t-2 border-red-300">
             <Link
               to="#"
-              className={`flex items-center p-2 rounded-lg ${
-                isActiveRoute('/admin/perfil') ? 'bg-red-300' : 'hover:bg-red-300'
+              className={`flex items-center p-2 rounded-lg bg-primaryRed ${
+                isActiveRoute('/admin/perfil')
+                  ? 'bg-red-300'
+                  : 'hover:bg-yellow-100 hover:text-primaryRed'
               }`}
             >
-              <div className="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full bg-primaryYellow flex items-center justify-center">
                 <span className="text-lg font-semibold">
                   {userInfo?.firstName.charAt(0)}
                   {userInfo?.lastName.charAt(0)}
@@ -173,10 +175,10 @@ const AdminLayout = () => {
               </div>
               {sidebarOpen && (
                 <div className="ml-3">
-                  <p className="font-medium text-red-400">
+                  <p className="font-bold text-primaryYellow">
                     {userInfo?.firstName} {userInfo?.lastName}
                   </p>
-                  <p className="text-sm text-gray-700">
+                  <p className="text-sm font-semibold text-gray-700">
                     {userInfo?.rol ? 'Administrador' : 'Usuario'}
                   </p>
                 </div>
@@ -186,7 +188,7 @@ const AdminLayout = () => {
             {sidebarOpen && (
               <button
                 onClick={handleLogout}
-                className="mt-4 w-full flex items-center p-2 rounded-lg text-red-500 hover:bg-red-300 cursor-pointer"
+                className="font-bold mt-4 w-full flex items-center px-4 py-5 rounded-lg text-red-500 hover:bg-red-300 cursor-pointer bg-primaryYellow"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -212,14 +214,14 @@ const AdminLayout = () => {
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar with user info for mobile */}
-        <header className="bg-red-300 shadow-sm z-10">
+        <header className="bg-primaryYellow text-primaryBlue shadow-sm z-10 p-2">
           <div className="flex items-center justify-between p-4">
             <div className="flex items-center">
-              <h1 className="text-xl font-semibold text-blue-500">Panel de Administración</h1>
+              <h1 className="text-xl font-bold text-shadow-primaryBlue">Panel de Administración</h1>
             </div>
 
             <div className="flex items-center space-x-3">
-              <span className="text-sm text-gray-700">Bienvenido, {userInfo?.firstName}</span>
+              <span className="text-sm font-semibold">Bienvenido, {userInfo?.firstName}</span>
               <button
                 onClick={handleLogout}
                 className="p-2 text-gray-600 hover:text-red-500 lg:hidden cursor-pointer"
