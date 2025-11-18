@@ -49,7 +49,7 @@ export default function EditSocio() {
     provinciaid: 0,
     regionid: 0,
     sector: '',
-    registradoPorid: 0
+    registradoPor: 0
   })
 
   useEffect(() => {
@@ -92,7 +92,7 @@ export default function EditSocio() {
           regionid: socioRes.data.regionid || 0,
           sector: socioRes.data.sector || '',
           impreso: socioRes.data.impreso,
-          registradoPorid: socioRes.data.registradoPorid
+          registradoPor: socioRes.data.registradoPor
         })
       } catch (err) {
         toast.error('Error cargando los datos')
@@ -162,7 +162,7 @@ export default function EditSocio() {
 
       const updates: UpdateSocio = {
         ...socio,
-        registradoPorid: userInfo?.userId,
+        registradoPor: userInfo?.userId,
         codunico: socio.codunico
       }
       if (imagesPreview.foto) {
