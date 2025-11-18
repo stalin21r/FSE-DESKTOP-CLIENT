@@ -5,8 +5,11 @@ import icon from '../../resources/icon.png?asset'
 import 'dotenv/config'
 import { registerDialogHandler } from './handlers/dialog.handler'
 import { registerSaveImageHandler } from './handlers/save-image.handler'
+import { setupAutoUpdater } from './updater'
+
 const apiUrl = process.env.VITE_API_URL || 'http://localhost:3000'
 const parsed = new URL(apiUrl)
+
 console.log(parsed)
 
 function createWindow(): void {
@@ -39,6 +42,10 @@ function createWindow(): void {
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
+  }
+
+  if (!is.dev) {
+    setupAutoUpdater(mainWindow)
   }
 }
 
