@@ -7,3 +7,4 @@ out
 .env
 .vscode
 /.vscode
+config/headers.prod.json
