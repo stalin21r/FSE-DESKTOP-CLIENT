@@ -1,12 +1,8 @@
 # Changelog
 
-## [1.0.2] - 2025-11-17
+## [1.0.4] - 2025-11-18
 
 ### Added
 
-- Sistema de actualizaciones automáticas
-- Notificaciones de nuevas versiones
-
-### Fixed
-
-- Corrección de bugs menores
+- Agregar registro de email
+- Agregar registro de auto identificación
