@@ -29,7 +29,7 @@ nsis:
   createDesktopShortcut: always
   oneClick: false
   allowToChangeInstallationDirectory: true
-  perMachine: false
+  perMachine: true
 mac:
   icon: resources/icon.icns
   category: public.app-category.utilities

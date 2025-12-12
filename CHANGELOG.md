@@ -1,8 +1,7 @@
 # Changelog
 
-## [1.0.4] - 2025-11-18
+## [1.0.6] - 2025-12-12
 
-### Added
+### Changed/Added/Fixed
 
-- Agregar registro de email
-- Agregar registro de auto identificación
+- cambio en headers
