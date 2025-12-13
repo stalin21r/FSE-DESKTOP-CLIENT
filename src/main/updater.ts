@@ -98,8 +98,7 @@ export function setupAutoUpdater(mainWindow: BrowserWindow): void {
         title: '❌ Error Crítico',
         message:
           'Hubo un error al descargar la actualización obligatoria.\n\n' +
-          'La aplicación se cerrará. Por favor, contacte al administrador del sistema.\n\n' +
-          `Error: ${err.message}`,
+          'La aplicación se cerrará. Por favor, contacte al administrador del sistema.',
         buttons: ['Cerrar Aplicación'],
         defaultId: 0,
         noLink: true
