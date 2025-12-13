@@ -50,7 +50,7 @@ export default function Socios() {
         navigate(ROUTES.LOGIN)
       }
       const confirmation = await MySwal.fire({
-        title: '¿Está seguro de eliminar este socio?',
+        title: '¿Está seguro de eliminar este miembro?',
         text: 'No olvide verificar los datos antes de eliminar',
         icon: 'warning',
         showCancelButton: true,
@@ -78,7 +78,7 @@ export default function Socios() {
       {loading && <LoadingOverlay />}
       <section className="flex w-full gap-3">
         <LuUsers className="text-6xl text-blue-500 font-bold" />
-        <TitlePage title="Socios" />
+        <TitlePage title="Miembros" />
       </section>
       <section className="flex w-full items-center justify-end">
         <NavLink
@@ -86,7 +86,7 @@ export default function Socios() {
           className="flex items-center bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl transition duration-300 ease-in-out gap-2"
         >
           <FaUserPlus />
-          Nuevo socio
+          Nuevo miembro
         </NavLink>
       </section>
 
@@ -110,8 +110,7 @@ export default function Socios() {
                     'Cargo',
                     'Provincia',
                     'Región',
-                    'Sector',
-                    'Impreso'
+                    'Sector'
                   ].map((header, index) => (
                     <th
                       key={index}
@@ -120,6 +119,9 @@ export default function Socios() {
                       {header}
                     </th>
                   ))}
+                  {userInfo?.rol === ROLES.ADMIN && (
+                    <th className="px-4 py-3 border-b border-blue-700 text-left">Impreso</th>
+                  )}
                   {userInfo?.rol === ROLES.ADMIN && (
                     <th className="px-4 py-3 border-b border-blue-700 text-left">Registrado Por</th>
                   )}
@@ -130,9 +132,8 @@ export default function Socios() {
                 {currentItems.map((socio, index) => (
                   <tr
                     key={socio.codunico}
-                    className={`transition-colors duration-150 border-b border-gray-200 ${
-                      index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-                    } hover:bg-gray-200`}
+                    className={`transition-colors duration-150 border-b border-gray-200 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                      } hover:bg-gray-100`}
                   >
                     <td className="px-4 py-2 font-medium">{start + index + 1}</td>
                     <td className="px-4 py-2">{socio.cedula}</td>
@@ -145,15 +146,16 @@ export default function Socios() {
                     <td className="px-4 py-2">{socio.provincia?.provincia}</td>
                     <td className="px-4 py-2">{socio.region?.region}</td>
                     <td className="px-4 py-2">{socio.sector || 'N/A'}</td>
-                    <td className="px-4 py-2">
-                      <span
-                        className={`px-3 py-1 rounded-full text-xs font-bold ${
-                          socio.impreso ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'
-                        }`}
-                      >
-                        {socio.impreso ? 'Sí' : 'No'}
-                      </span>
-                    </td>
+                    {userInfo?.rol === ROLES.ADMIN && (
+                      <td className="px-4 py-2">
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-bold ${socio.impreso ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'
+                            }`}
+                        >
+                          {socio.impreso ? 'Sí' : 'No'}
+                        </span>
+                      </td>
+                    )}
                     {userInfo?.rol === ROLES.ADMIN && (
                       <td className="px-4 py-2">{socio.registradoPor2?.username}</td>
                     )}
@@ -177,13 +179,15 @@ export default function Socios() {
                         >
                           <BiEdit />
                         </button>
-                        <button
-                          title="Eliminar"
-                          className="p-2 rounded-full bg-gray-200 hover:bg-red-300 text-red-600 transition-all duration-300 cursor-pointer text-lg"
-                          onClick={() => handleDelete(socio.codunico)}
-                        >
-                          <BiTrash />
-                        </button>
+                        {userInfo?.rol === ROLES.ADMIN && (
+                          <button
+                            title="Eliminar"
+                            className="p-2 rounded-full bg-gray-200 hover:bg-red-300 text-red-600 transition-all duration-300 cursor-pointer text-lg"
+                            onClick={() => handleDelete(socio.codunico)}
+                          >
+                            <BiTrash />
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>

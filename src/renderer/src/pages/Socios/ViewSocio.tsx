@@ -38,7 +38,7 @@ export default function ViewSocio() {
     <div className="h-full w-full flex flex-col justify-start pt-8 px-4">
       <section className="flex w-full gap-3 items-center">
         <LuUser className="text-6xl text-blue-500 font-bold" />
-        <TitlePage title="Detalle del Socio" />
+        <TitlePage title="Detalle del Miembro" />
       </section>
       <section className="flex w-full items-center justify-end">
         <NavLink
@@ -53,7 +53,9 @@ export default function ViewSocio() {
         <div className="w-full max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm text-blue-900">
             <Info label="Cédula" value={socio.cedula} />
-            <Info label="Código" value={socio.codunico} />
+            {userInfo?.rol === 'admin' && (
+              <Info label="Código" value={socio.codunico} />
+            )}
             <Info label="Primer Nombre" value={socio.pnombre} />
             <Info label="Segundo Nombre" value={socio.snombre} />
             <Info label="Primer Apellido" value={socio.papellido} />
@@ -68,8 +70,9 @@ export default function ViewSocio() {
             {userInfo?.rol === 'admin' && (
               <Info label="Registrado Por" value={socio.registradoPor2?.username || 'N/A'} />
             )}
-
-            <Info label="Impreso" value={socio.impreso ? 'Sí' : 'No'} />
+            {userInfo?.rol === 'admin' && (
+              <Info label="Impreso" value={socio.impreso ? 'Sí' : 'No'} />
+            )}
             <Info
               label="Fecha de Registro"
               value={new Date(socio.fechaRegistro).toLocaleString()}

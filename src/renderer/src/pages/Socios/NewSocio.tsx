@@ -231,7 +231,7 @@ export default function NewSocio() {
       {loading && <LoadingOverlay />}
       <section className="flex w-full gap-3">
         <LuUserPlus className="text-6xl text-blue-500 font-bold" />
-        <TitlePage title="Nuevo socio" />
+        <TitlePage title="Nuevo miembro" />
       </section>
       <section className="flex w-full items-center justify-end">
         <NavLink

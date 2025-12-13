@@ -6,7 +6,7 @@ export interface Usuario {
   email: string
   firstname: string
   lastname: string
-  rol: Rol
+  rol?: Rol // Hacerlo opcional
   active: boolean
 }
 

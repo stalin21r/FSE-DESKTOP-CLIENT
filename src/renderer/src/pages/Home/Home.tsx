@@ -14,22 +14,23 @@ export default function Home() {
           }}
         />
       </div>
-      <h1 className="text-4xl font-bold leading-tight mt-4 text-center">
+      <h2 className='text-2xl font-bold text-primaryBlue mt-3'>ORGANIZACIÓN PLURINACIONAL</h2>
+      <h1 className="text-4xl font-bold leading-tight mt-2 text-center">
         <span className="text-amber-400">Fuerzas </span>
         <span className="text-blue-600">Sociales </span>
         <span className="text-red-600">Del </span>
         <span className="text-red-600">Ecuador</span>
       </h1>
       <p className="text-lg mt-4 max-w-3xl text-center text-gray-600">
-        Este programa está diseñado para facilitar la gestión integral de los socios de la
-        Asociación "Fuerzas Sociales del Ecuador". A través de una interfaz intuitiva y eficiente,
-        permite crear nuevos socios, consultar la información detallada de cada miembro, así como
+        Este programa está diseñado para facilitar la gestión integral de los miembros de la
+        Organización "Fuerzas Sociales del Ecuador". A través de una interfaz intuitiva y eficiente,
+        permite crear nuevos miembros, consultar la información detallada de cada miembro, así como
         editar y actualizar sus datos en tiempo real. Con herramientas especializadas para
-        administrar el registro y seguimiento de los socios, la aplicación garantiza un manejo
-        organizado y seguro, optimizando los procesos internos de la asociación y contribuyendo a
+        administrar el registro y seguimiento de los miembros, la aplicación garantiza un manejo
+        organizado y seguro, optimizando los procesos internos de la organización y contribuyendo a
         fortalecer la comunidad y sus objetivos sociales. Ya sea para incorporar nuevos integrantes
         o mantener la información vigente, este sistema se convierte en una solución completa y
-        confiable para la administración de la asociación.
+        confiable para la administración de la organización.
       </p>
 
       {/* Footer */}

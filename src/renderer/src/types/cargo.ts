@@ -1,12 +1,12 @@
 export interface Cargo {
   id: number
   cargo: string
-  tipo: 'Socio' | 'Dirigente' // según validación en DTO
+  tipo: 'Miembro' | 'Dirigente' // Cambiado de 'Socio' a 'Miembro'
 }
 
 export interface CreateCargo {
   cargo: string
-  tipo: 'Socio' | 'Dirigente'
+  tipo: 'Miembro' | 'Dirigente' // Cambiado de 'Socio' a 'Miembro'
 }
 
 export interface UpdateCargo extends Partial<CreateCargo> {

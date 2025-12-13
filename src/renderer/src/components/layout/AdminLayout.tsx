@@ -3,7 +3,7 @@ import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import { LogoCircular } from '@renderer/assets/images'
 import { ROUTES } from '@renderer/utils/constants'
-import { LuUsers, LuCog, LuChevronDown } from 'react-icons/lu'
+import { LuUsers, LuCog, LuChevronDown, LuBriefcase } from 'react-icons/lu'
 import { AiOutlineHome } from 'react-icons/ai'
 
 const AdminLayout = () => {
@@ -87,12 +87,11 @@ const AdminLayout = () => {
               <li>
                 <Link
                   to={ROUTES.ADMIN_HOME}
-                  className={`flex items-center p-3 rounded-lg ${sidebarOpen ? 'justify-start' : 'justify-center'} ${
-                    isActiveRoute(ROUTES.ADMIN_HOME) &&
+                  className={`flex items-center p-3 rounded-lg ${sidebarOpen ? 'justify-start' : 'justify-center'} ${isActiveRoute(ROUTES.ADMIN_HOME) &&
                     !location.pathname.includes(ROUTES.ADMIN_HOME + '/')
-                      ? 'bg-primaryYellow text-primaryBlue'
-                      : 'hover:bg-secondaryYellow hover:text-primaryRed'
-                  } transition-all duration-300 ease-in-out`}
+                    ? 'bg-primaryYellow text-primaryBlue'
+                    : 'hover:bg-secondaryYellow hover:text-primaryRed'
+                    } transition-all duration-300 ease-in-out`}
                 >
                   <AiOutlineHome className="h-7 w-7" />
                   {sidebarOpen && <span className="ml-3">Inicio</span>}
@@ -101,15 +100,14 @@ const AdminLayout = () => {
               <li>
                 <Link
                   to={ROUTES.ADMIN_SOCIOS}
-                  className={`flex items-center p-3 rounded-lg ${sidebarOpen ? 'justify-start' : 'justify-center'} ${
-                    isActiveRoute(ROUTES.ADMIN_SOCIOS) ||
+                  className={`flex items-center p-3 rounded-lg ${sidebarOpen ? 'justify-start' : 'justify-center'} ${isActiveRoute(ROUTES.ADMIN_SOCIOS) ||
                     location.pathname.includes(ROUTES.ADMIN_SOCIOS + '/')
-                      ? 'bg-primaryYellow text-primaryBlue'
-                      : 'hover:bg-secondaryYellow hover:text-primaryRed'
-                  } transition-all duration-300 ease-in-out`}
+                    ? 'bg-primaryYellow text-primaryBlue'
+                    : 'hover:bg-secondaryYellow hover:text-primaryRed'
+                    } transition-all duration-300 ease-in-out`}
                 >
                   <LuUsers className="h-7 w-7" />
-                  {sidebarOpen && <span className="ml-3">Socios</span>}
+                  {sidebarOpen && <span className="ml-3">Miembros</span>}
                 </Link>
               </li>
 
@@ -118,9 +116,8 @@ const AdminLayout = () => {
                   <li>
                     <button
                       onClick={() => setIsConfigDown(!isConfigDown)}
-                      className={`w-full flex items-center p-3 rounded-lg ${sidebarOpen ? 'justify-start' : 'justify-center'} ${
-                        isConfigDown && sidebarOpen ? 'bg-primaryRed' : 'hover:bg-primaryRed'
-                      } 
+                      className={`w-full flex items-center p-3 rounded-lg ${sidebarOpen ? 'justify-start' : 'justify-center'} ${isConfigDown && sidebarOpen ? 'bg-primaryRed' : 'hover:bg-primaryRed'
+                        }
                   }`}
                     >
                       <LuCog className="h-7 w-7" />
@@ -137,19 +134,29 @@ const AdminLayout = () => {
                     </button>
                   </li>
                   <ul
-                    className={`${sidebarOpen && isConfigDown ? 'pl-2 ml-3 border-l-2 border-red-300 opacity-100' : 'opacity-0 max-h-0'} transition-all duration-500 ease-in-out`}
+                    className={`${sidebarOpen && isConfigDown ? 'pl-2 ml-3 border-l-2 border-red-300 opacity-100' : 'opacity-0 max-h-0'} space-y-2 transition-all duration-500 ease-in-out`}
                   >
                     <Link
-                      to={ROUTES.ADMIN_SOCIOS}
-                      className={`flex items-center p-3 rounded-lg ${sidebarOpen ? 'justify-start ' : 'justify-center'} ${
-                        isActiveRoute(ROUTES.ADMIN_SOCIOS) &&
-                        !location.pathname.includes(ROUTES.ADMIN_SOCIOS + '/')
-                          ? 'bg-amber-200'
-                          : 'hover:bg-amber-200'
-                      }`}
+                      to={ROUTES.ADMIN_CARGOS}
+                      className={`flex items-center p-3 rounded-lg ${sidebarOpen ? 'justify-start ' : 'justify-center'} ${isActiveRoute(ROUTES.ADMIN_CARGOS) &&
+                        !location.pathname.includes(ROUTES.ADMIN_CARGOS + '/')
+                        ? 'bg-amber-200 text-primaryBlue'
+                        : 'hover:bg-amber-200 hover:text-primaryRed'
+                        } transition-all duration-300 ease-in-out`}
+                    >
+                      <LuBriefcase className="h-7 w-7" />
+                      {sidebarOpen && <span className="ml-3">Cargos</span>}
+                    </Link>
+                    <Link
+                      to={ROUTES.ADMIN_USERS}
+                      className={`flex items-center p-3 rounded-lg ${sidebarOpen ? 'justify-start ' : 'justify-center'} ${isActiveRoute(ROUTES.ADMIN_USERS) &&
+                        !location.pathname.includes(ROUTES.ADMIN_USERS + '/')
+                        ? 'bg-amber-200 text-primaryBlue'
+                        : 'hover:bg-amber-200 hover:text-primaryRed'
+                        } transition-all duration-300 ease-in-out`}
                     >
                       <LuUsers className="h-7 w-7" />
-                      {sidebarOpen && <span className="ml-3">Socios</span>}
+                      {sidebarOpen && <span className="ml-3">Usuarios</span>}
                     </Link>
                   </ul>
                 </>
@@ -161,11 +168,10 @@ const AdminLayout = () => {
           <div className="mt-2 p-2 border-t-2 border-red-300">
             <Link
               to="#"
-              className={`flex items-center p-2 rounded-lg bg-primaryRed ${
-                isActiveRoute('/admin/perfil')
-                  ? 'bg-red-300'
-                  : 'hover:bg-yellow-100 hover:text-primaryRed'
-              }`}
+              className={`flex items-center p-2 rounded-lg bg-primaryRed ${isActiveRoute('/admin/perfil')
+                ? 'bg-red-300'
+                : 'hover:bg-yellow-100 hover:text-primaryRed'
+                }`}
             >
               <div className="w-10 h-10 rounded-full bg-primaryYellow flex items-center justify-center">
                 <span className="text-lg font-semibold">
@@ -179,7 +185,7 @@ const AdminLayout = () => {
                     {userInfo?.firstName} {userInfo?.lastName}
                   </p>
                   <p className="text-sm font-semibold text-gray-700">
-                    {userInfo?.rol ? 'Administrador' : 'Usuario'}
+                    {userInfo?.rol === 'admin' ? 'Administrador' : 'Usuario'}
                   </p>
                 </div>
               )}

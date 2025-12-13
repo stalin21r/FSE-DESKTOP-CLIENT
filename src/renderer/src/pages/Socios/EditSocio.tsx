@@ -214,8 +214,8 @@ export default function EditSocio() {
     <div className="h-full w-full flex flex-col justify-start pt-8 px-4">
       {loading && <LoadingOverlay />}
       <section className="flex w-full gap-3">
-        <LuUserPlus className="text-6xl text-yellow-500 font-bold" />
-        <TitlePage title="Editar socio" />
+        <LuUserPlus className="text-6xl text-blue-500 font-bold" />
+        <TitlePage title="Editar miembro" />
       </section>
       <section className="flex w-full items-center justify-end">
         <NavLink

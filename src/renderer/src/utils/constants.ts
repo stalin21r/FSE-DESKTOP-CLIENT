@@ -10,7 +10,7 @@ export const ROLES = {
 }
 
 export const TIPOS_SOCIOS = {
-  SOCIO: 'Socio',
+  MIEMBRO: 'Miembro', // Cambiado de SOCIO: 'Socio'
   DIRIGENTE: 'Dirigente'
 }
 
