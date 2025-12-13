@@ -1,7 +1,7 @@
 {
   "name": "fse-desktop",
   "productName": "Registro FSE",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Sistema de Registro de Miembros FSE",
   "main": "./out/main/index.js",
   "author": "stalin21r",

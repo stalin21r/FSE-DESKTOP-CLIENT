@@ -1,7 +1,7 @@
 # Changelog
 
-## [1.0.6] - 2025-12-12
+## [1.0.7] - 2025-12-13
 
 ### Changed/Added/Fixed
 
-- cambio en headers
+- Se añade módulos de usuarios y cargos
